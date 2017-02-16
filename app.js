@@ -5,7 +5,7 @@ var app = express();
 var greeting = process.env.GREETING || "World";
 
 function say_hello(){
-    return "Servus " + greeting + "<br> My hostname is " + os.hostname() + "<br> My IP address is " + ip.address();
+    return "Hello " + greeting + "<br> My hostname is " + os.hostname() + "<br> My IP address is " + ip.address();
 }
 
 app.get('/api/hello', function(req, resp) {
