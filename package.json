@@ -4,13 +4,18 @@
   "description": "A sample App to showcase Openshift",
   "main": "app.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "http://gogs.apps.192.168.122.100.xip.io/dev/hello-ms.git"
   },
   "author": "Andreas Neeb",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "~4.13.4",
+    "os": "~0.1.1",
+    "ip": "~1.1.3"
+  }
 }
