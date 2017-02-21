@@ -11,6 +11,7 @@ function say_hello(){
 app.get('/api/hello', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
     resp.send(say_hello());
+    console.log("Saying hello")
 });
 
 app.get('/', function(req, resp) {
