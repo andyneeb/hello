@@ -5,7 +5,7 @@ var app = express();
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
 
-function xsay_hello(){
+function say_hello(){
     return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address();
 }
 
