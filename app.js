@@ -7,7 +7,7 @@ var who = process.env.WHO;
 var fs = require('fs');
 
 function say_hello(){
-    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + fs.data();
+    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + fs;
 }
 
 fs.readFile('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'utf8', function(err, data) {  
