@@ -11,7 +11,6 @@ function say_hello(){
     return greeting + " " + who + "! Hostname: " + os.hostname() + " - IP: " + ip.address() + " - Stage: " + stage;
 }
 
-
 app.get('/api/hello', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
     resp.send(say_hello());
