@@ -4,7 +4,8 @@ var ip = require('ip');
 var app = express();
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
-var stage = require('/var/run/secrets/kubernetes.io/serviceaccount/namespace');
+var stage = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
+
 
 function say_hello(){
     return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + stage;
