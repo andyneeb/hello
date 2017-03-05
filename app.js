@@ -6,7 +6,7 @@ var greeting = process.env.GREETING;
 var who = process.env.WHO;
 
 function say_hello(){
-    return greeting + " " + who + " from " + os.hostname() + " with IP " + ip.address();
+    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address();
 }
 
 app.get('/api/hello', function(req, resp) {
