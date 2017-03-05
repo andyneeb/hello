@@ -4,19 +4,12 @@ var ip = require('ip');
 var app = express();
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
-var fs = require('fs');
+var stage = require('/var/run/secrets/kubernetes.io/serviceaccount/namespace');
 
 function say_hello(){
-    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + stage.resp();
+    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + stage;
 }
 
-
-function stage(req, resp) {
-     fs.readFile('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'utf8', function(err, data) {  
-         if (err) throw err;
-         console.log(data);
-     });
-};
 
 app.get('/api/hello', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
