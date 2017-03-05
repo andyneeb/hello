@@ -7,16 +7,15 @@ var who = process.env.WHO;
 var fs = require('fs');
 
 function say_hello(){
-    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + stage.resp(data);
+    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + stage.resp();
 }
 
 
 function stage(req, resp) {
-
-fs.readFile('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'utf8', function(err, data) {  
-    if (err) throw err;
-    console.log(data);
-});
+     fs.readFile('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'utf8', function(err, data) {  
+         if (err) throw err;
+         console.log(data);
+     });
 };
 
 app.get('/api/hello', function(req, resp) {
