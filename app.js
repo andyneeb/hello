@@ -7,7 +7,7 @@ var who = process.env.WHO;
 var fs = require('fs');
 
 function say_hello(){
-    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + fs;
+    return greeting + " " + who + " from Container " + os.hostname() + " with IP " + ip.address() + " in " + fs(data);
 }
 
 fs.readFile('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'utf8', function(err, data) {  
@@ -18,7 +18,6 @@ fs.readFile('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'utf8', f
 app.get('/api/hello', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
     resp.send(say_hello());
-    console.log("calling function say_hello")
 });
 
 app.get('/', function(req, resp) {
