@@ -8,7 +8,7 @@ var fs = require("fs");
 var stage = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
 
 function say_hello(){
-    return greeting + " " + who + "!\nHostname: " + os.hostname() + "\nIP: " + ip.address() + "\nStage: " + stage;
+    return greeting + " " + who + "! Hostname: " + os.hostname() + " IP: " + ip.address() + " Stage: " + stage;
 }
 
 app.get('/api/hello', function(req, resp) {
