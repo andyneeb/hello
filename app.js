@@ -6,14 +6,14 @@ var greeting = process.env.GREETING;
 var who = process.env.WHO;
 var fs = require("fs");
 var stage = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
-var file = if (fs.existsSync('/etc/hello.conf')) {
-    fs.readFileSync("/etc/hello.conf").toString();}
 
 function say_hello(){
     return greeting + " " + who + "! Hostname: " + os.hostname() + " IP: " + ip.address() + " Stage: " + stage;
 }
 
 function say_file(){
+    if (fs.existsSync('/etc/hello.conf')) {
+    var file = fs.readFileSync("/etc/hello.conf").toString();}
     return file;
 }
 
