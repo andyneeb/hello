@@ -5,10 +5,14 @@ var app = express();
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
 var fs = require("fs");
-var stage = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
+var namespace = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
 
 function say_hello(){
-    return greeting + " " + who + "! Hostname: " + os.hostname() + " IP: " + ip.address() + " Stage: " + stage;
+    return greeting + " " + who + "! Hostname: " + os.hostname() + " IP: " + ip.address();
+}
+
+function get_namespace(){
+    return "Project: " + namespace;
 }
 
 function read_file(){
@@ -29,9 +33,14 @@ app.get('/api/file', function(req, resp) {
     resp.send(read_file());
 });
 
+app.get('/api/project', function(req, resp) {
+    resp.set('Access-Control-Allow-Origin', '*');
+    resp.send(get_namespace());
+});
+
 app.get('/', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
-    resp.send('endpoint: <a href="/api/health">/api/health</a> <br> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a>');
+    resp.send('endpoint: <br> <a href="/api/health">/api/health</a> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a>');
 });
 
 app.get('/api/health', function(req, resp) {
