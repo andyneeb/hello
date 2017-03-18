@@ -6,14 +6,24 @@ var greeting = process.env.GREETING;
 var who = process.env.WHO;
 var fs = require("fs");
 var stage = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
+var file = fs.readFileSync("/etc/hello.conf").toString() || 'config file not present';
 
 function say_hello(){
     return greeting + " " + who + "! Hostname: " + os.hostname() + " IP: " + ip.address() + " Stage: " + stage;
 }
 
+function say_file(){
+    return file;
+}
+
 app.get('/api/hello', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
     resp.send(say_hello());
+});
+
+app.get('/api/file', function(req, resp) {
+    resp.set('Access-Control-Allow-Origin', '*');
+    resp.send(say_file());
 });
 
 app.get('/', function(req, resp) {
