@@ -40,7 +40,7 @@ app.get('/api/project', function(req, resp) {
 
 app.get('/', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
-    resp.send('endpoint: <br> <a href="/api/health">/api/health</a> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a>');
+    resp.send('endpoint: <br> <a href="/api/health">/api/health</a> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a> <br> <a href="api/project">/api/project</a>');
 });
 
 app.get('/api/health', function(req, resp) {
