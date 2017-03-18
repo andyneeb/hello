@@ -11,9 +11,11 @@ function say_hello(){
     return greeting + " " + who + "! Hostname: " + os.hostname() + " IP: " + ip.address() + " Stage: " + stage;
 }
 
-function say_file(){
+function read_file(){
     if (fs.existsSync('/etc/hello.conf')) {
     var file = fs.readFileSync("/etc/hello.conf").toString();}
+    else {
+    var file = "file not found";}
     return file;
 }
 
@@ -24,7 +26,7 @@ app.get('/api/hello', function(req, resp) {
 
 app.get('/api/file', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
-    resp.send(say_file());
+    resp.send(read_file());
 });
 
 app.get('/', function(req, resp) {
