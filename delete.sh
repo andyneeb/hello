@@ -1,1 +1,1 @@
-oc delete all --all -n dev
+oc delete all --all -n dev --now=true
