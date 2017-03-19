@@ -4,7 +4,7 @@ a simple node.js showcase for openshift
 
 endpoint /api/hello returns "$GREETING $WHO" with $GREETING defaulting to "Hello" and $WHO to "World" 
 
-also shows pod hostname, pod ip and project to demo loadbalancing / resiliency / staging ...
+also shows pod hostname, pod ip to demo loadbalancing / resiliency / staging ...
 
 # to deploy on openshift:
 oc new-app nodejs:4~https://github.com/andyneeb/hello.git --name=hello
