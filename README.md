@@ -9,7 +9,7 @@ also shows pod hostname, pod ip and project to demo loadbalancing / resiliency /
 # to deploy on openshift:
 oc new-app nodejs:4~https://github.com/andyneeb/hello.git --name=hello
 
-oc expose svc hello --path=/api/hello
+oc expose svc hello
 
 optional - set health check:
 
