@@ -1,1 +1,1 @@
-git commit -am 'minor changes'; git push
+git commit -am 'automated push'; git push
