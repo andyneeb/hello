@@ -7,7 +7,7 @@ var who = process.env.WHO;
 var fs = require("fs");
 var namespace = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
 
-function sayx_hello(){
+function say_hello(){
     return greeting + " " + who + "! I am Host: " + os.hostname() + " IP: " + ip.address();
 }
 
