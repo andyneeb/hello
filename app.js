@@ -8,7 +8,7 @@ var fs = require("fs");
 var namespace = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
 
 function say_hello(){
-    return greeting + " " + who + "! I am Host: " + os.hostname() + " IP: " + ip.address();
+    return greeting + " " + who + "! Container: " + os.hostname() + " IP: " + ip.address();
 }
 
 function get_namespace(){
