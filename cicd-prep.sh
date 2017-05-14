@@ -3,6 +3,8 @@
 
 oc login -u system:admin
 
+oc delete project myproject
+
 # Create projects (dev/test/prod) and set access
 oc adm new-project dev --admin=dev
 oc adm new-project test --admin=test
