@@ -38,14 +38,14 @@ app.get('/api/project', function(req, resp) {
     resp.send(get_namespace());
 });
 
-app.get('/', function(req, resp) {
-    resp.set('Access-Control-Allow-Origin', '*');
-    resp.send('<a href="/api/health">/api/health</a> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a> <br> <a href="api/project">/api/project</a>');
-});
-
 app.get('/api/health', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
     resp.send("I'm ok");
+});
+
+app.get('/', function(req, resp) {
+    resp.set('Access-Control-Allow-Origin', '*');
+    resp.send('<a href="/api/health">/api/health</a> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a> <br> <a href="api/project">/api/project</a>');
 });
 
 var server = app.listen(8080, '0.0.0.0', function() {
