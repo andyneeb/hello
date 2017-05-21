@@ -16,8 +16,8 @@ function get_namespace(){
 }
 
 function read_file(){
-    if (fs.existsSync('/etc/hello.conf')) {
-    var file = fs.readFileSync("/etc/hello.conf").toString();}
+    if (fs.existsSync('/etc/hello/hello.conf')) {
+    var file = fs.readFileSync("/etc/hello/hello.conf").toString();}
     else {
     var file = "file not found";}
     return file;
