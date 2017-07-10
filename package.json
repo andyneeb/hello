@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://gogs.apps.192.168.122.100.xip.io/dev/hello.git"
+    "url": "http://github.com/andyneeb/hello.git"
   },
   "author": "Andreas Neeb",
   "license": "Apache-2.0",
