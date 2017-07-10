@@ -21,5 +21,3 @@ oc env dc hello WHO=Munich
 # scale
 oc scale dc hello --replicas=3
 
-
-
