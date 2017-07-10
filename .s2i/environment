@@ -1,5 +1,5 @@
 GREETING=Hello
 WHO=World
 DEV_MODE=false
-NPM_MIRROR=http://nexus.nexus.svc.cluster.local:8081/content/repositories/npm_proxy/
+#NPM_MIRROR=http://nexus.nexus.svc.cluster.local:8081/content/repositories/npm_proxy/
 #NPM_MIRROR=https://registry.npmjs.org/
