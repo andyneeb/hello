@@ -16,8 +16,8 @@ function get_namespace(){
 }
 
 function read_file(){
-    if (fs.existsSync('/opt/app-root/src/hello.conf')) {
-    var file = fs.readFileSync("/opt/app-root/src/hello.conf").toString();}
+    if (fs.existsSync('/tmp/hello')) {
+    var file = fs.readFileSync("/tmp/hello").toString();}
     else {
     var file = "file not found";}
     return file;
