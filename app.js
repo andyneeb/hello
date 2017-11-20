@@ -12,7 +12,7 @@ function say_hello(){
 }
 
 function get_hostname(){
-    return os.EOL + "Hostname: " + os.hostname();
+    return os.hostname();
 }
 
 function get_namespace(){
@@ -34,7 +34,7 @@ app.get('/api/hello', function(req, resp) {
 
 app.get('/api/file', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
-    resp.send(read_file() + get_hostname()); 
+    resp.send(read_file() + os.hostname()); 
 });
 
 app.get('/api/project', function(req, resp) {
