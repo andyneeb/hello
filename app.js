@@ -31,7 +31,7 @@ app.get('/api/hello', function(req, resp) {
 app.get('/api/file', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
     resp.send(read_file());
-    resp.send("/n/nFrom Container" + os.hostname()"); 
+    resp.send("/n/nFrom Container" + os.hostname()); 
 });
 
 app.get('/api/project', function(req, resp) {
