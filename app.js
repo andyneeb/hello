@@ -19,7 +19,7 @@ function read_file(){
     if (fs.existsSync('/tmp/hello/hello.conf')) {
     var file = fs.readFileSync("/tmp/hello/hello.conf").toString();}
     else {
-    var file = "file not found";}
+    var file = "Hello (default)";}
     return file;
 }
 
