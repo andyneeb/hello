@@ -11,10 +11,6 @@ function say_hello(){
     return greeting + " " + who + " ! Hostname: " + os.hostname() + " IP: " + ip.address();
 }
 
-function get_hostname(){
-    return os.hostname();
-}
-
 function get_namespace(){
     return "Project: " + namespace;
 }
@@ -34,7 +30,7 @@ app.get('/api/hello', function(req, resp) {
 
 app.get('/api/file', function(req, resp) {
     resp.set('Access-Control-Allow-Origin', '*');
-    resp.send(read_file() + os.hostname()); 
+    resp.send(read_file() + " from Container " + os.hostname()); 
 });
 
 app.get('/api/project', function(req, resp) {
