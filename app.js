@@ -12,7 +12,7 @@ function say_hello(){
 }
 
 function get_hostname(){
-    return greeting "Hostname: " + os.hostname();
+    return "\n\nHostname: " + os.hostname();
 }
 
 function get_namespace(){
