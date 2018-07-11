@@ -5,24 +5,10 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.13.3",
-    "ip": "^1.1.5"},
-  "devDependencies": {},
+    "ip": "^1.1.5"
+  },
   "scripts": {
     "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andyneeb/hello.git"
-  },
-  "keywords": [
-    "hello",
-    "nodejs",
-    "openshift"
-  ],
-  "author": "Andreas Neeb",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/andyneeb/hello/issues"
-  },
-  "homepage": "https://github.com/andyneeb/hello#readme"
+  "author": "Andreas Neeb"
 }
