@@ -32,13 +32,13 @@ app.get('/healthz', function (req, res) {
    res.status(404).send('NOT OK');
 });
 
-app.get('/cancer', function (req, res) {
+app.get('/kill', function (req, res) {
    healthy=false;
    res.send('Killed ' + os.hostname());
 });
 
 app.get('/', function(req, res) {
-    res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a>');
+    res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a> <br> <a href="/kill">/kill</a>');
 });
 
 
