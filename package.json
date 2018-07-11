@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "An Openshift showcase in Node.JS",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.13.3",
+    "ip": "^1.1.5"},
   "devDependencies": {},
   "scripts": {
     "start": "node app.js"
