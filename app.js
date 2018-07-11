@@ -1,19 +1,12 @@
 var express = require('express');
 var os = require('os');
 var ip = require('ip');
-var app = express();
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
 var fs = require("fs");
-var namespace = fs.readFileSync("/var/run/secrets/kubernetes.io/serviceaccount/namespace").toString();
-
-function say_hello(){
-    return greeting + " " + who + " ! Hostname: " + os.hostname() + " My IP: " + ip.address();
-}
-
-function get_namespace(){
-    return "Project: " + namespace;
-}
+var healthy=true;
+const PORT = 8080;
+const app = express();
 
 function read_file(){
     if (fs.existsSync('/tmp/hello/hello.conf')) {
@@ -23,34 +16,38 @@ function read_file(){
     return file;
 }
 
-app.get('/api/hello', function(req, resp) {
-    resp.set('Access-Control-Allow-Origin', '*');
-    resp.send(say_hello());
+app.get('/hello', function (req, res) {
+  res.send(greeting + ' ' + who + 'from ' + os.hostname() + 'with IP' + ip.address() + '\n');
 });
 
-app.get('/api/file', function(req, resp) {
-    resp.set('Access-Control-Allow-Origin', '*');
-    resp.send(read_file() + " from Container " + os.hostname()); 
+app.get('/file', function(req, res) {
+    res.send(read_file() + " from Container " + os.hostname() + '\n'); 
 });
 
-app.get('/api/project', function(req, resp) {
-    resp.set('Access-Control-Allow-Origin', '*');
-    resp.send(get_namespace());
+app.get('/healthz', function (req, res) {
+  console.log('health enquiry')
+  if(healthy)
+   res.send('OK');
+  else
+   res.status(404).send('NOT OK');
 });
 
-app.get('/api/health', function(req, resp) {
-    resp.set('Access-Control-Allow-Origin', '*');
-    resp.send("I'm ok");
+app.get('/cancer', function (req, res) {
+   healthy=false;
+   res.send('Killed ' + os.hostname());
 });
 
-app.get('/', function(req, resp) {
-    resp.set('Access-Control-Allow-Origin', '*');
-    resp.send('<a href="/api/health">/api/health</a> <br> <a href="/api/hello">/api/hello</a> <br> <a href="api/file">/api/file</a> <br> <a href="api/project">/api/project</a>');
+app.get('/', function(req, res) {
+    res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a>');
 });
 
-var server = app.listen(8080, '0.0.0.0', function() {
-    var host = server.address().address
-    var port = server.address().port
 
-    console.log("Hello service running at http://%s:%s", host, port)
+
+app.listen(PORT, '0.0.0.0'); 
+    console.log('Hello service running at http://localhost:' + PORT);
+
+
+process.on('SIGTERM', function () {
+    console.log('Cleanup.....');
+    process.exit();
 });
