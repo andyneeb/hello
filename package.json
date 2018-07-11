@@ -1,0 +1,26 @@
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "description": "An Openshift showcase in Node.JS",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyneeb/hello.git"
+  },
+  "keywords": [
+    "hello",
+    "nodejs",
+    "openshift"
+  ],
+  "author": "Andreas Neeb",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/andyneeb/hello/issues"
+  },
+  "homepage": "https://github.com/andyneeb/hello#readme"
+}
