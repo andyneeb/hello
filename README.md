@@ -13,7 +13,7 @@ oc expose svc hello
 
 optional - set health check:
 
-oc set probe dc/hello --readiness --get-url=http://:8080/hello --initial-delay-seconds=1 --timeout-seconds=1
+oc set probe dc/hello --readiness --get-url=http://:8080/healthz --initial-delay-seconds=1 --timeout-seconds=1
 
 # demo config change
 oc env dc hello WHO=Munich
