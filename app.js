@@ -1,10 +1,13 @@
 var express = require('express');
 var os = require('os');
 var ip = require('ip');
+var cors = require('cors');
+var fs = require("fs");
+
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
-var fs = require("fs");
 var healthy=true;
+
 const PORT = 8080;
 const app = express();
 
@@ -41,6 +44,22 @@ app.get('/', function(req, res) {
     res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a> <br> <a href="/kill">/kill</a>');
 });
 
+app.get('/dbtest',cors(),function(req,res){
+   var mysql      = require('mysql');
+   var connection = mysql.createConnection({
+     host     : process.env.mysql_host,
+     user     : process.env.mysql_user,
+     password : process.env.mysql_password,
+     database : process.env.mysql_database
+   });
+   connection.connect();
+   connection.query('SELECT * from emails', function(err, rows, fields) {
+     if (err) throw err;
+     console.log('The solution is: ',rows);
+     connection.end();
+     res.json(rows);
+   });
+});
 
 
 app.listen(PORT, '0.0.0.0'); 
