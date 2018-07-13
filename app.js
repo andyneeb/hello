@@ -47,10 +47,10 @@ app.get('/', function(req, res) {
 app.get('/dbtest',cors(),function(req,res){
    var mysql      = require('mysql');
    var connection = mysql.createConnection({
-     host     : process.env.mysql_host,
-     user     : process.env.mysql_user,
-     password : process.env.mysql_password,
-     database : process.env.mysql_database
+     host     : mysql,
+     user     : process.env.user_name,
+     password : process.env.password,
+     database : process.env.database_name
    });
    connection.connect();
    connection.query('SELECT * from emails', function(err, rows, fields) {
