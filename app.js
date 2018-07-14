@@ -53,12 +53,12 @@ app.get('/dbtest',cors(),function(req,res){
      database : process.env.database_name
    });
    connection.connect();
-   connection.query('SELECT * from emails', function(err, rows, fields) {
-     if (err) throw err;
-     console.log('The solution is: ',rows);
-     connection.end();
-     res.json(rows);
-   });
+//   connection.query('SELECT * from emails', function(err, rows, fields) {
+//     if (err) throw err;
+//     console.log('The solution is: ',rows);
+//     connection.end();
+//     res.json(rows);
+//   });
 });
 
 
