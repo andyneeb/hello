@@ -1,15 +1,25 @@
 var express = require('express');
+var mysql = require('mysql');
 var os = require('os');
 var ip = require('ip');
 var cors = require('cors');
 var fs = require("fs");
 
+var pool      =    mysql.createPool({
+    connectionLimit : 100,
+    host     : 'database',
+    user     : 'hello',
+    password : 'redhat',
+    database : 'hello',
+    debug    :  false
+});
+
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
 var healthy=true;
 
-const PORT = 8080;
-const app = express();
+var PORT = 8080;
+var app = express();
 
 function read_file(){
     if (fs.existsSync('/tmp/hello/hello.conf')) {
@@ -44,23 +54,33 @@ app.get('/', function(req, res) {
     res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a> <br> <a href="/kill">/kill</a>');
 });
 
-app.get('/dbtest',cors(),function(req,res){
-   var mysql      = require('mysql');
-   var connection = mysql.createConnection({
-     host     : process.env.MYSQL_SERVICE_HOST,
-     user     : process.env.MYSQL_USER,
-     password : process.env.MYSQL_PASSWORD,
-     database : process.env.MYSQL_DATABASE
-   });
-   connection.connect();
-//   connection.query('SELECT * from emails', function(err, rows, fields) {
-//     if (err) throw err;
-//     console.log('The solution is: ',rows);
-//     connection.end();
-//     res.json(rows);
-//   });
-});
+function handle_database(req,res) {
+    
+    pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }   
 
+        console.log('connected as id ' + connection.threadId);
+        
+        connection.query("select * from user",function(err,rows){
+            connection.release();
+            if(!err) {
+                res.json(rows);
+            }           
+        });
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;     
+        });
+  });
+}
+
+app.get("/dbtest",function(req,res){-
+        handle_database(req,res);
+});
 
 app.listen(PORT, '0.0.0.0'); 
     console.log('Hello service running at http://localhost:' + PORT);
