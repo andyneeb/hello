@@ -47,7 +47,7 @@ app.get('/', function(req, res) {
 app.get('/dbtest',cors(),function(req,res){
    var mysql      = require('mysql');
    var connection = mysql.createConnection({
-     host     : mysql,
+     host     : process.env.MYSQL_SERVICE_HOST,
      user     : process.env.user_name,
      password : process.env.password,
      database : process.env.database_name
