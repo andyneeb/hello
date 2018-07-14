@@ -1,18 +1,15 @@
 var express = require('express');
 var os = require('os');
+var ip = require('ip');
 var fs = require("fs");
-
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-
+var port = 8080;
 var greeting = process.env.GREETING || 'Hello';
 var who = process.env.WHO || 'World';
 var healthy=true;
-
 var app = express();
 
 app.get('/hello', function (req, res) {
-  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip + '\n');
+  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip.address() + '\n');
 });
 
 app.get('/file', function(req, res) {
