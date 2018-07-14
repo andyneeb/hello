@@ -10,7 +10,7 @@ var healthy=true;
 var app = express();
 
 app.get('/hello', function (req, res) {
-  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip + '\n');
+  res.send(greeting + ' ' + who + '\n Container ' + os.hostname() + '\n Address' + ip + '\n');
 });
 
 app.get('/file', function(req, res) {
