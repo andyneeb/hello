@@ -48,9 +48,9 @@ app.get('/dbtest',cors(),function(req,res){
    var mysql      = require('mysql');
    var connection = mysql.createConnection({
      host     : process.env.MYSQL_SERVICE_HOST,
-     user     : process.env.user_name,
-     password : process.env.password,
-     database : process.env.database_name
+     user     : process.env.MYSQL_USER,
+     password : process.env.MYSQL_PASSWORD,
+     database : process.env.MYSQL_DATABASE
    });
    connection.connect();
 //   connection.query('SELECT * from emails', function(err, rows, fields) {
