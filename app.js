@@ -22,7 +22,7 @@ function read_file(){
 }
 
 app.get('/hello', function (req, res) {
-  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip.address() + '\n');
+  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip + '\n');
 });
 
 app.get('/file', function(req, res) {
