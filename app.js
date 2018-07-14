@@ -1,6 +1,7 @@
 var express = require('express');
 var os = require('os');
-var ip = require('ip');
+var networkInterfaces = os.networkInterfaces();
+var ip = networkInterfaces['eth0'][0]['address']
 var fs = require("fs");
 var port = 8080;
 var greeting = process.env.GREETING || 'Hello';
@@ -9,7 +10,7 @@ var healthy=true;
 var app = express();
 
 app.get('/hello', function (req, res) {
-  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip.address() + '\n');
+  res.send(greeting + ' ' + who + ' from Container ' + os.hostname() + ' with IP' + ip + '\n');
 });
 
 app.get('/file', function(req, res) {
