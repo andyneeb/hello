@@ -1,24 +1,16 @@
 var express = require('express');
-var mysql = require('mysql');
 var os = require('os');
-var ip = require('ip');
-var cors = require('cors');
 var fs = require("fs");
 
-var pool      =    mysql.createPool({
-    connectionLimit : 100,
-    host     : 'database',
-    user     : 'hello',
-    password : 'redhat',
-    database : 'hello',
-    debug    :  false
-});
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
+var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
+var mongoURLLabel = "";
 
 var greeting = process.env.GREETING;
 var who = process.env.WHO;
 var healthy=true;
 
-var PORT = 8080;
 var app = express();
 
 function read_file(){
@@ -54,37 +46,98 @@ app.get('/', function(req, res) {
     res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a> <br> <a href="/kill">/kill</a>');
 });
 
-function handle_database(req,res) {
+if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
+  var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
+      mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
+      mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
+      mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
+      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
+      mongoUser = process.env[mongoServiceName + '_USER'];
+
+  if (mongoHost && mongoPort && mongoDatabase) {
+    mongoURLLabel = mongoURL = 'mongodb://';
+    if (mongoUser && mongoPassword) {
+      mongoURL += mongoUser + ':' + mongoPassword + '@';
+    }
+    // Provide UI label that excludes user id and pw
+    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
+    mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
     
-    pool.getConnection(function(err,connection){
-        if (err) {
-          res.json({"code" : 100, "status" : "Error in connection database"});
-          return;
-        }   
-
-        console.log('connected as id ' + connection.threadId);
-        
-        connection.query("select * from user",function(err,rows){
-            connection.release();
-            if(!err) {
-                res.json(rows);
-            }           
-        });
-
-        connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
-              return;     
-        });
-  });
+  }
 }
 
-app.get("/dbtest",function(req,res){-
-        handle_database(req,res);
+var db = null,
+    dbDetails = new Object();
+
+var initDb = function(callback) {
+  if (mongoURL == null) return;
+
+  var mongodb = require('mongodb');
+  if (mongodb == null) return;
+
+  mongodb.connect(mongoURL, function(err, conn) {
+    if (err) {
+      callback(err);
+      return;
+    }
+
+    db = conn;
+    dbDetails.databaseName = db.databaseName;
+    dbDetails.url = mongoURLLabel;
+    dbDetails.type = 'MongoDB';
+
+    console.log('Connected to MongoDB at: %s', mongoURL);
+  });
+};
+
+app.get('/dbtest', function (req, res) {
+   // try to initialize the db on every request if it's not already
+   // initialized.
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('counts');
+    // Create a document with request IP and current time of request
+    col.insert({ip: req.ip, date: Date.now()});
+    col.count(function(err, count){
+      if (err) {
+        console.log('Error running count. Message:\n'+err);
+      }
+      res.send({ pageCountMessage : count, dbInfo: dbDetails });
+    });
+  } else {
+    res.send({ pageCountMessage : null});
+  }
+  });
+
+app.get('/dbtest', function (req, res) {
+  // try to initialize the db on every request if it's not already initialized.
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    db.collection('counts').count(function(err, count ){
+      res.send('{ pageCount: ' + count + '}');
+    });
+  } else {
+    res.send('{ pageCount: -1 }');
+  }
+});
+
+
+// error handling
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  res.status(500).send('Something bad happened!');
+});
+
+initDb(function(err){
+  console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
 app.listen(PORT, '0.0.0.0'); 
     console.log('Hello service running at http://localhost:' + PORT);
-
 
 process.on('SIGTERM', function () {
     console.log('Cleanup.....');
