@@ -136,8 +136,8 @@ initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
 });
 
-app.listen(PORT, '0.0.0.0'); 
-    console.log('Hello service running at http://localhost:' + PORT);
+app.listen(port, ip);
+console.log('Server running on http://%s:%s', ip, port);
 
 process.on('SIGTERM', function () {
     console.log('Cleanup.....');
