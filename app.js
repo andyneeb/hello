@@ -28,7 +28,7 @@ app.get('/version', function(req, res) {
     var file = fs.readFileSync("/etc/version").toString();}
   else {
     var file = "--No version set--";}
-  res.send(file + '\n'); 
+  res.send('Base layer ' + file + '\n'); 
 });
 
 app.get('/healthz', function (req, res) {
