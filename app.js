@@ -23,7 +23,7 @@ app.get('/file', function(req, res) {
 });
 
 app.get('/version', function(req, res) {
-  console.log('getting version')  
+  console.log('getting base layer version')  
   if (fs.existsSync('/etc/version')) {
     var file = fs.readFileSync("/etc/version").toString();}
   else {
