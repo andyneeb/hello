@@ -14,12 +14,21 @@ app.get('/hello', function (req, res) {
 });
 
 app.get('/file', function(req, res) {
-  console.log('health enquiry')  
+  console.log('reading config file')  
   if (fs.existsSync('/tmp/hello/hello.conf')) {
     var file = fs.readFileSync("/tmp/hello/hello.conf").toString();}
   else {
     var file = "--No config file--";}
   res.send(file + " from Container " + os.hostname() + '\n'); 
+});
+
+app.get('/version', function(req, res) {
+  console.log('getting version')  
+  if (fs.existsSync('/etc/version')) {
+    var file = fs.readFileSync("/etc/version").toString();}
+  else {
+    var file = "--No version set--";}
+  res.send(file + '\n'); 
 });
 
 app.get('/healthz', function (req, res) {
