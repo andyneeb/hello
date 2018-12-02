@@ -24,7 +24,7 @@ app.get('/file', function(req, res) {
 
 app.get('/imageversion', function(req, res) {
   console.log('getting base image version')  
-  if (fs.existsSync('/etc/version')) {
+  if (fs.existsSync('/etc/imageversion')) {
     var file = fs.readFileSync("/etc/imageversion").toString();}
   else {
     var file = "--No version set--";}
