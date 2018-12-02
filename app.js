@@ -25,10 +25,10 @@ app.get('/file', function(req, res) {
 app.get('/imageversion', function(req, res) {
   console.log('getting base image version')  
   if (fs.existsSync('/etc/imageversion')) {
-    var file = fs.readFileSync("/etc/imageversion").toString();}
+    var imageversion = fs.readFileSync("/etc/imageversion").toString();}
   else {
-    var file = "<version not set>";}
-  res.send('Image version ' + file + '\n'); 
+    var imageversion = "<version not set>";}
+  res.send('Image version :' + imageversion + '\n'); 
 });
 
 app.get('/healthz', function (req, res) {
