@@ -22,13 +22,13 @@ app.get('/file', function(req, res) {
   res.send(file + " from Container " + os.hostname() + '\n'); 
 });
 
-app.get('/version', function(req, res) {
-  console.log('getting base layer version')  
+app.get('/imageversion', function(req, res) {
+  console.log('getting base image version')  
   if (fs.existsSync('/etc/version')) {
-    var file = fs.readFileSync("/etc/version").toString();}
+    var file = fs.readFileSync("/etc/imageversion").toString();}
   else {
     var file = "--No version set--";}
-  res.send('Base layer ' + file + '\n'); 
+  res.send('Image version ' + file + '\n'); 
 });
 
 app.get('/healthz', function (req, res) {
@@ -44,7 +44,7 @@ app.get('/kill', function (req, res) {
 });
 
 app.get('/', function(req, res) {
-    res.send('<a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a> <br> <a href="/kill">/kill</a>');
+    res.send('<a href="/imageversion">/imageversion</a> <br> <a href="/healthz">/healthz</a> <br> <a href="/hello">/hello</a> <br> <a href="/file">/file</a> <br> <a href="/kill">/kill</a>');
 });
 
 app.listen(port, ip);
