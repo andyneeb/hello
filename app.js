@@ -27,8 +27,8 @@ app.get('/imageversion', function(req, res) {
   if (fs.existsSync('/etc/imageversion')) {
     var imageversion = fs.readFileSync("/etc/imageversion").toString();}
   else {
-    var imageversion = ' not set';}
-  res.send('Image version :' + imageversion + '\n'); 
+    var imageversion = 'not set';}
+  res.send('Image version : ' + imageversion + '\n'); 
 });
 
 app.get('/healthz', function (req, res) {
