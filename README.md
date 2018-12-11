@@ -2,9 +2,18 @@
 
 a simple node.js showcase for openshift
 
-endpoint /hello returns "$GREETING $WHO" with $GREETING defaulting to "Hello" and $WHO to "World" 
+/hello returns "$GREETING $WHO" with $GREETING defaulting to "Hello" and $WHO to "World" 
 
-also shows pod hostname, pod ip to demo loadbalancing / resiliency / staging ...
+also shows pod hostname, pod ip to demo loadbalancing / resiliency / staging 
+
+/healthz returns 200 OK unless set unhealthy via
+
+/kill.
+
+/file ready and displays content of /tmp/hello/hello.conf
+
+/imageversion shows version of base image layer as set via Dockerfile
+
 
 # to deploy on openshift:
 oc new-app nodejs:4~https://github.com/andyneeb/hello.git --name=hello
