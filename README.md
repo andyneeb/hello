@@ -8,7 +8,7 @@ also shows pod hostname, pod ip to demo loadbalancing / resiliency / staging
 
 /healthz returns 200 OK unless set unhealthy via
 
-/kill.
+/kill in which case it returns 404 NOT OK
 
 /file ready and displays content of /tmp/hello/hello.conf
 
