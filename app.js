@@ -9,7 +9,7 @@ var who = process.env.WHO || 'World';
 var healthy=true;
 var app = express();
 
-app.get('/hello', function (req, res) {
+appx.get('/hello', function (req, res) {
   console.log('saying hello')
   res.send(greeting + ' ' + who + ' from container ' + os.hostname() + ' with address ' + ip);
 });
