@@ -10,6 +10,7 @@ var healthy=true;
 var app = express();
 
 app.get('/hello', function (req, res) {
+  console.log('saying hello')
   res.send(greeting + ' ' + who + ' from container ' + os.hostname() + ' with address ' + ip);
 });
 
@@ -39,8 +40,9 @@ app.get('/healthz', function (req, res) {
 });
 
 app.get('/kill', function (req, res) {
-   healthy=false;
-   res.send('Killed ' + os.hostname());
+  console.log('setting unhealthy')
+  healthy=false;
+  res.send('Killed ' + os.hostname());
 });
 
 app.get('/', function(req, res) {
