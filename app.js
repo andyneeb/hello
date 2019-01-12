@@ -11,7 +11,7 @@ var app = express();
 
 app.get('/hello', function (req, res) {
   console.log('saying hello')
-  res.send(greeting + ' ' + who + ' from container ' + os.hostname() + ' with address ' + ip);
+  res.send(greeting + ' ' + who + ' from container ' + os.hostname() + ' with Ip address ' + ip);
 });
 
 app.get('/file', function(req, res) {
